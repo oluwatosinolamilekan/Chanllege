@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\SaveFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,10 +26,7 @@ class PDFController extends Controller
                 // update existing or just leave it as it was...
             }else{
                 // store the file...
-                $saveFile = new PDF;
-                $saveFile->name = $fileName;
-                $saveFile->size = $fileName->getSize();
-                $saveFile->save();
+                $saveFile = (new SaveFile())->run($request);
             }
             // else create new one..
         }else{
